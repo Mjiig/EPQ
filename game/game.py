@@ -5,7 +5,7 @@ class Game(object):
         self._finished=False
         self._score1=0
         self._score2=0
-        self._winner=0 #0 refers to no one having won
+        self.winner=0 #0 refers to no one having won
 
     def play(self, n):
         if n>64:
@@ -21,12 +21,20 @@ class Game(object):
         else:
             self._next_player=1
 
+        if self._board.count(0)==0: #if every square has been played one
+            self._finished=True
+
+        self.score()
+
     def score(self):
         self._score1=0
         self._score2=0
         for i in range(8):
             self._score_line(self._board[i*8:(i+1)*8]) #score the vertical lines
             self._score_line(self._board[i::8]) #score the horizontal lines
+
+        if self._finished:
+            self._pick_winner()
         
         #Notice no scores for diagonal lines
 
@@ -48,10 +56,13 @@ class Game(object):
 
             if length>=6:
                 self._finished=True
-                self._winner=current_player
+                self.winner=current_player
+                return #avoid the pick winner function being run, as the winner is decided independant of the score in this case
 
-
-
-
-
-
+    def _pick_winner(self):
+        if self._score1>self._score2:
+            self.winner=1
+        elif self._score2>self._score1:
+            self.winner=2
+        else:
+            self.winner=0
