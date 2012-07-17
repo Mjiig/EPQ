@@ -9,7 +9,7 @@ class Game(object):
 
     def play(self, n):
         if n>64:
-            raise IndexError, str(n) + "is bigger than 63 so is not a valid move"
+            raise IndexError, str(n) + " is bigger than 63 so is not a valid move"
 
         if self._board[n]==0:
             self._board[n]=self._next_player
