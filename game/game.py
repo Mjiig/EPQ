@@ -66,3 +66,20 @@ class Game(object):
             self.winner=2
         else:
             self.winner=0
+
+    def board_string(self):
+        ret=""
+        n=0
+        for i in self._board:
+            if i==1:
+                ret+="o"
+            elif i==2:
+                ret+="x"
+            else:
+                ret+=" "
+            ret+="|"
+            n+=1
+            if n%8==0:
+                ret+="\n________________\n"
+        return ret
+
