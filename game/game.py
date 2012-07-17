@@ -1,4 +1,4 @@
-class Game:
+class Game(object):
     def __init__(self):
         self._board=[0]*64 #0 is an unplayed square
         self._next_player=1 #player 1 plays first (obviously)
