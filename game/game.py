@@ -16,6 +16,9 @@ class Game(object):
         else:
             raise ValueError, "square " +str(n) + " has already been played in"
 
+        if self.finished:
+            raise RuntimeError, "the game is already finished"
+
         if self.next_player==1:
             self.next_player=2
         else:
@@ -86,12 +89,15 @@ class Game(object):
 if __name__=="__main__":
     g=Game()
     while not g.finished:
-        print
-        print "Player " + str(g.next_player) + " is next to play"
-        print "Player 1: " + str(g.score1) + "\t Player 2: " + str(g.score2)
-        print g.board_string()
-        square=int(raw_input("Where would you like to play? "))
-        g.play(square)
+        try:
+            print
+            print "Player " + str(g.next_player) + " is next to play"
+            print "Player 1: " + str(g.score1) + "\t Player 2: " + str(g.score2)
+            print g.board_string()
+            square=int(raw_input("Where would you like to play? "))
+            g.play(square)
+        except:
+            print "It appears there was something wrong with that move"
         
     print "The winner is: Player " + str(g.score2)
 
