@@ -1,10 +1,10 @@
 class Game(object):
     def __init__(self):
         self._board=[0]*64 #0 is an unplayed square
-        self._next_player=1 #player 1 plays first (obviously)
-        self._finished=False
-        self._score1=0
-        self._score2=0
+        self.next_player=1 #player 1 plays first (obviously)
+        self.finished=False
+        self.score1=0
+        self.score2=0
         self.winner=0 #0 refers to no one having won
 
     def play(self, n):
@@ -12,28 +12,28 @@ class Game(object):
             raise IndexError, str(n) + " is bigger than 63 so is not a valid move"
 
         if self._board[n]==0:
-            self._board[n]=self._next_player
+            self._board[n]=self.next_player
         else:
             raise ValueError, "square " +str(n) + " has already been played in"
 
-        if self._next_player==1:
-            self._next_player=2
+        if self.next_player==1:
+            self.next_player=2
         else:
-            self._next_player=1
+            self.next_player=1
 
         if self._board.count(0)==0: #if every square has been played one
-            self._finished=True
+            self.finished=True
 
         self.score()
 
     def score(self):
-        self._score1=0
-        self._score2=0
+        self.score1=0
+        self.score2=0
         for i in range(8):
             self._score_line(self._board[i*8:(i+1)*8]) #score the vertical lines
             self._score_line(self._board[i::8]) #score the horizontal lines
 
-        if self._finished:
+        if self.finished:
             self._pick_winner()
         
         #Notice no scores for diagonal lines
@@ -50,19 +50,19 @@ class Game(object):
 
             if length>=3:
                 if current_player==1:
-                    self._score1+=1
+                    self.score1+=1
                 else:
-                    self._score2+=1
+                    self.score2+=1
 
             if length>=6:
-                self._finished=True
+                self.finished=True
                 self.winner=current_player
                 return #avoid the pick winner function being run, as the winner is decided independant of the score in this case
 
     def _pick_winner(self):
-        if self._score1>self._score2:
+        if self.score1>self.score2:
             self.winner=1
-        elif self._score2>self._score1:
+        elif self.score2>self.score1:
             self.winner=2
         else:
             self.winner=0
