@@ -83,3 +83,15 @@ class Game(object):
                 ret+="\n________________\n"
         return ret
 
+if __name__=="__main__":
+    g=Game()
+    while not g.finished:
+        print
+        print "Player " + str(g.next_player) + " is next to play"
+        print "Player 1: " + str(g.score1) + "\t Player 2: " + str(g.score2)
+        print g.board_string()
+        square=int(raw_input("Where would you like to play? "))
+        g.play(square)
+        
+    print "The winner is: Player " + str(g.score2)
+
