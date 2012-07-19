@@ -6,13 +6,15 @@ class Game(object):
         self.score1=0
         self.score2=0
         self.winner=0 #0 refers to no one having won
+        self._prev_pass=False
 
     def play(self, n):
         if n>64:
             raise IndexError, str(n) + " is bigger than 63 so is not a valid move"
 
         if self._board[n]==0:
-            self._board[n]=self.next_player
+            if n is not -1:
+                self._board[n]=self.next_player
         else:
             raise ValueError, "square " +str(n) + " has already been played in"
 
@@ -26,6 +28,13 @@ class Game(object):
 
         if self._board.count(0)==0: #if every square has been played one
             self.finished=True
+
+        if n==-1:
+            if self._prev_pass:
+                self.finished=True
+            self._prev_pass=True
+        else:
+            self._prev_pass=False
 
         self.score()
 
