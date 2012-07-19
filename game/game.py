@@ -105,8 +105,8 @@ if __name__=="__main__":
             print g.board_string()
             square=int(raw_input("Where would you like to play? "))
             g.play(square)
-        except:
-            print "It appears there was something wrong with that move"
+        except Exception as e:
+            print "\n\nIt appears there was something wrong with that move. Python says: "+ e.args[0] + "\nTry again!\n\n"
         
-    print "The winner is: Player " + str(g.score2)
+    print "The winner is: Player " + str(g.winner)
 
