@@ -12,14 +12,14 @@ class Game(object):
         if n>64:
             raise IndexError, str(n) + " is bigger than 63 so is not a valid move"
 
+        if self.finished:
+            raise RuntimeError, "the game is already finished"
+
         if self._board[n]==0:
             if n is not -1:
                 self._board[n]=self.next_player
         else:
             raise ValueError, "square " +str(n) + " has already been played in"
-
-        if self.finished:
-            raise RuntimeError, "the game is already finished"
 
         if self.next_player==1:
             self.next_player=2
