@@ -2,7 +2,7 @@ tests: test/runner
 	./test/runner
 
 test/runner: test/runner.cpp vm.o
-	$(CXX) -I$(HOME)/bin/cxxtest -o test/runner test/runner.cpp
+	$(CXX) -I$(HOME)/bin/cxxtest -o test/runner test/runner.cpp vm.o
 
 test/runner.cpp: test/vm-test.h
 	cd test; \
