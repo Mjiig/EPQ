@@ -38,4 +38,6 @@ class VM
 	bool finished; //indicates whether the program has called TERM or not
 	VM(std::string init);
 	unsigned char run(std::string state);
+
+	friend class VMTests; //For unit testing
 };
