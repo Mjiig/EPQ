@@ -3,5 +3,10 @@
 
 class VMTests: public CxxTest::TestSuite
 {
+	public:
+	void test_tests(void)
+	{
+		TS_ASSERT(true);
+	}
 
 };
