@@ -53,7 +53,7 @@ void VM::mainloop(void)
 	/*this would perhaps be better/more efficiently done by having a data structure hold a list of strings and appropriate function pointers, but that's a lot more work for probably a very small gain*/
 	while(!finished) //Add in a steps limit later
 	{
-		exec(program[ip%program.length()]);
+		exec(program[ip%program.size()]);
 		ip++;
 		steps++;
 	}
