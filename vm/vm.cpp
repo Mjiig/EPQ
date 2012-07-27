@@ -95,16 +95,12 @@ void VM::exec(std::string ins)
 		term();
 	if(!ins.compare(0, 3, "INC"))
 		inc();
-	if(!ins.compare(0, 3, "NEG"))
-		neg();
 	if(!ins.compare(0, 3, "ADD"))
 		add();
 	if(!ins.compare(0, 3, "DIV"))
 		div();
 	if(!ins.compare(0, 4, "MULT"))
 		mult();
-	if(!ins.compare(0, 4, "COMP"));
-		comp();
 }
 
 void VM::swap(unsigned char &a, unsigned char &b) // notice this is not an instruction, but a helper
@@ -184,11 +180,6 @@ void VM::inc(void)
 	r1++;
 }
 
-void VM::neg(void)
-{
-	r1=-r1;
-}
-
 void VM::add(void)
 {
 	r1+=memory[r2];
@@ -209,21 +200,5 @@ void VM::div(void)
 void VM::mult(void)
 {
 	r1*=memory[r2];
-}
-
-void VM::comp(void)
-{
-	if(r1<0)
-	{
-		r1=-1;
-	}
-	else if(r1>0)
-	{
-		r1=1;
-	}
-	else
-	{
-		r1=0;
-	}
 }
 

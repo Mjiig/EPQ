@@ -28,11 +28,9 @@ class VM
 	void swap5(void);
 	void term(void);
 	void inc(void);
-	void neg(void);
 	void add(void);
 	void div(void);
 	void mult(void);
-	void comp(void);
 
 	public:
 	bool finished; //indicates whether the program has called TERM or not
