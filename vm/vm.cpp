@@ -195,6 +195,11 @@ void VM::add(void)
 	r1+=memory[r2];
 }
 
+void VM::sub(void)
+{
+	r1-=memory[r2];
+}
+
 void VM::div(void)
 {
 	if(memory[r2])

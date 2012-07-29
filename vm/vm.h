@@ -29,6 +29,7 @@ class VM
 	void term(void);
 	void inc(void);
 	void add(void);
+	void sub(void);
 	void div(void);
 	void mult(void);
 
