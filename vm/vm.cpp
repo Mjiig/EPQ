@@ -77,39 +77,40 @@ void VM::exec(std::string ins)
 		int literal=atoi(ins.substr(6).c_str());
 		load1(literal);
 	}
-	if(!ins.compare(0, 5, "LOAD2"))
+	else if(!ins.compare(0, 5, "LOAD2"))
 	{
 		int literal=atoi(ins.substr(6).c_str());
 		load2(literal);
 	}
-
-	if(!ins.compare(0, 3, "NOP"))
+	else if(!ins.compare(0, 3, "NOP"))
 		nop();
-	if(!ins.compare(0, 3, "JMP"))
+	else if(!ins.compare(0, 3, "JMP"))
 		jmp();
-	if(!ins.compare(0, 5, "JUMPIF"))
+	else if(!ins.compare(0, 5, "JUMPIF"))
 		jmpif();
-	if(!ins.compare(0, 5, "STORE"))
+	else if(!ins.compare(0, 5, "STORE"))
 		store();
-	if(!ins.compare(0, 4, "LOAD"))
+	else if(!ins.compare(0, 4, "LOAD"))
 		load();
-	if(!ins.compare(0, 5, "SWAP2"))
+	else if(!ins.compare(0, 5, "SWAP2"))
 		swap2();
-	if(!ins.compare(0, 5, "SWAP3"))
+	else if(!ins.compare(0, 5, "SWAP3"))
 		swap3();
-	if(!ins.compare(0, 5, "SWAP4"))
+	else if(!ins.compare(0, 5, "SWAP4"))
 		swap4();
-	if(!ins.compare(0, 5, "SWAP5"))
+	else if(!ins.compare(0, 5, "SWAP5"))
 		swap5();
-	if(!ins.compare(0, 4, "TERM"))
+	else if(!ins.compare(0, 4, "TERM"))
 		term();
-	if(!ins.compare(0, 3, "INC"))
+	else if(!ins.compare(0, 3, "INC"))
 		inc();
-	if(!ins.compare(0, 3, "ADD"))
+	else if(!ins.compare(0, 3, "ADD"))
 		add();
-	if(!ins.compare(0, 3, "DIV"))
+	else if(!ins.compare(0, 3, "SUB"))
+		sub();
+	else if(!ins.compare(0, 3, "DIV"))
 		div();
-	if(!ins.compare(0, 4, "MULT"))
+	else if(!ins.compare(0, 4, "MULT"))
 		mult();
 }
 
