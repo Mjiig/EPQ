@@ -84,10 +84,10 @@ void VM::exec(std::string ins)
 	}
 	else if(!ins.compare(0, 3, "NOP"))
 		nop();
+	else if(!ins.compare(0, 5, "JMPIF"))
+		jmpif();
 	else if(!ins.compare(0, 3, "JMP"))
 		jmp();
-	else if(!ins.compare(0, 5, "JUMPIF"))
-		jmpif();
 	else if(!ins.compare(0, 5, "STORE"))
 		store();
 	else if(!ins.compare(0, 4, "LOAD"))
