@@ -14,6 +14,16 @@ VM::VM(std::string programtext)
 		next=programtext.find('\n', last+1);
 	}
 	program.push_back(programtext.substr(last, next));
+	
+	r1=r2=r3=r4=r5=0;
+	for(int i=0; i<256;i++)
+	{
+		memory[i]=0;
+	}
+
+	finished=false;
+	ip=0;
+	steps=0;
 }
 
 unsigned char VM::run(std::string state)
