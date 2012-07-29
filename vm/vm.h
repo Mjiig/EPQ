@@ -38,5 +38,6 @@ class VM
 	VM(std::string init);
 	unsigned char run(std::string state);
 
-	friend class VMTests; //For unit testing
+	friend class ExecTests; //For unit testing
+	friend class InstructionTests;
 };

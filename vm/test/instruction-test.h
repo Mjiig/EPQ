@@ -1,7 +1,7 @@
 #include "../vm.h"
 #include <cxxtest/TestSuite.h>
 
-class VMTests: public CxxTest::TestSuite
+class InstructionTests: public CxxTest::TestSuite
 {
 	VM* vm;
 
