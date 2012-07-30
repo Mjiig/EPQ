@@ -19,3 +19,6 @@ test/instruction-test.cpp: test/instruction-test.h
 vm.o: vm.cpp vm.h
 	g++ vm.cpp -c -o vm.o -Wall
 
+clean:
+	rm test/runner test/runner.cpp test/exec-test.cpp test/instruction-test.cpp vm.o
+
