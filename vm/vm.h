@@ -40,4 +40,5 @@ class VM
 
 	friend class ExecTests; //For unit testing
 	friend class InstructionTests;
+	friend class ProgramTests;
 };

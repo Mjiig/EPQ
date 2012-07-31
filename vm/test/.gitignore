@@ -2,3 +2,4 @@ runner
 runner.cpp
 instruction-test.cpp
 exec-test.cpp
+program-test.cpp
