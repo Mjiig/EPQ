@@ -10,8 +10,8 @@ VM::VM(std::string programtext)
 	while(next!=std::string::npos)
 	{
 		program.push_back(programtext.substr(last, next-last));
-		last=next;
-		next=programtext.find('\n', last+1);
+		last=next+1;
+		next=programtext.find('\n', last);
 	}
 	program.push_back(programtext.substr(last, next));
 	
