@@ -130,7 +130,7 @@ void VM::nop(void)
 
 void VM::jmp(void)
 {
-	ip=r2;
+	ip=r2-1;
 }
 
 void VM::jmpif(void)

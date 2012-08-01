@@ -35,10 +35,10 @@ class InstructionTests: public CxxTest::TestSuite
 	{
 		vm->r2=5;
 		vm->jmp();
-		TS_ASSERT_EQUALS(vm->ip, 5);
+		TS_ASSERT_EQUALS(vm->ip, 4); //Notice 1 is subtracted to account for the instruction pointer moving forward
 		vm->r2=10;
 		vm->jmp();
-		TS_ASSERT_EQUALS(vm->ip, 10);
+		TS_ASSERT_EQUALS(vm->ip, 9);
 	}
 
 	void test_jmpif(void)
@@ -47,11 +47,11 @@ class InstructionTests: public CxxTest::TestSuite
 		vm->r2=5;
 		vm->r1=0;
 		vm->jmpif();
-		TS_ASSERT_EQUALS(vm->ip, 5);
+		TS_ASSERT_EQUALS(vm->ip, 4);
 		vm->r2=6;
 		vm->r1=1;
 		vm->jmpif();
-		TS_ASSERT_EQUALS(vm->ip, 5);
+		TS_ASSERT_EQUALS(vm->ip, 4);
 	}
 
 	void test_load1(void)
