@@ -80,4 +80,42 @@ class ProgramTests: public CxxTest::TestSuite
 		delete vm;
 	}
 
+	void test_run(void)
+	{
+		VM *vm = new VM("NOP\nNOP\nTERM");
+		vm->run("1111111111111111111111111111111111111111111111111111111111111111");
+		TS_ASSERT_EQUALS(vm->steps, 3);
+		TS_ASSERT_EQUALS(vm->r1, 0);
+		TS_ASSERT_EQUALS(vm->r2, 0);
+		TS_ASSERT_EQUALS(vm->r3, 0);
+		TS_ASSERT_EQUALS(vm->r4, 0);
+		TS_ASSERT_EQUALS(vm->r5, 0);
+		TS_ASSERT_EQUALS(vm->ip, 3);
+
+		delete vm;
+
+		vm= new VM("LOAD1 5\nTERM");
+		vm->run("1111111111111111111111111111111111111111111111111111111111111111");
+		TS_ASSERT_EQUALS(vm->steps, 2);
+		TS_ASSERT_EQUALS(vm->r1, 5);
+		TS_ASSERT_EQUALS(vm->r2, 0);
+		TS_ASSERT_EQUALS(vm->r3, 0);
+		TS_ASSERT_EQUALS(vm->r4, 0);
+		TS_ASSERT_EQUALS(vm->r5, 0);
+		TS_ASSERT_EQUALS(vm->ip, 2);
+
+		delete vm;
+
+		vm=new VM("SWAP2\nSTORE\nSWAP2\nINC\nLOAD2 8\nJMPIF\nLOAD2 0\nJMP\nTERM");
+		vm->run("1111111111111111111111111111111111111111111111111111111111111111");
+		TS_ASSERT_EQUALS(vm->r1, 0);
+		TS_ASSERT_EQUALS(vm->r2, 8);
+		TS_ASSERT_EQUALS(vm->ip, 9);
+		for(size_t i=0;i<256;i++)
+		{
+			TS_ASSERT_EQUALS(vm->memory[i], 0);
+		}
+		TS_TRACE(vm->steps);
+		delete vm;
+	}
 };
