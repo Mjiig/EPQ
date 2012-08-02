@@ -6,7 +6,7 @@ class VM
 	unsigned char memory[256];
 	unsigned char r1, r2, r3, r4, r5;
 	std::vector<std::string> program; //a vector containing each line of the program
-	int ip; //the instruction pointer
+	size_t ip; //the instruction pointer
 	int steps;
 
 	void swap(unsigned char &a, unsigned char &b);
