@@ -106,7 +106,7 @@ class ProgramTests: public CxxTest::TestSuite
 
 		delete vm;
 
-		vm=new VM("SWAP2\nSTORE\nSWAP2\nINC\nLOAD2 8\nJMPIF\nLOAD2 0\nJMP\nTERM");
+		vm=new VM("SWAP2\nSTORE\nSWAP2\nINC\nLOAD2 8\nJMPIF\nLOAD2 0\nJMP\nTERM"); //zero the memory
 		vm->run("1111111111111111111111111111111111111111111111111111111111111111");
 		TS_ASSERT_EQUALS(vm->r1, 0);
 		TS_ASSERT_EQUALS(vm->r2, 8);
@@ -115,7 +115,25 @@ class ProgramTests: public CxxTest::TestSuite
 		{
 			TS_ASSERT_EQUALS(vm->memory[i], 0);
 		}
-		TS_TRACE(vm->steps);
+		TS_ASSERT_EQUALS(vm->steps, 2047);
+
+		vm->run("1111111111111111111111111111112222222222222222222222222222220000");
+		for(size_t i=0;i<256;i++)
+		{
+			TS_ASSERT_EQUALS(vm->memory[i], 0);
+		}
+		vm->run("0000000000000000000000000000000000000000000000000000000000000000");
+		for(size_t i=0;i<256;i++)
+		{
+			TS_ASSERT_EQUALS(vm->memory[i], 0);
+		}
+
+		delete vm;
+
+		vm=new VM("SWAP2\nLOAD\nSWAP2\nSWAP3\nSWAP2\nLOAD2 11\nJMPIF\nSWAP3\nINC\nLOAD2 0\nJMP\nSWAP3\nTERM");
+		TS_ASSERT_EQUALS(vm->run("1101"), 2);
+		TS_ASSERT_EQUALS(vm->run("121212121212112112121112120121211121"), 26); 
+
 		delete vm;
 	}
 };
