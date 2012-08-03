@@ -45,7 +45,7 @@ class Game(object):
             self._score_line(self._board[i*8:(i+1)*8]) #score the vertical lines
             self._score_line(self._board[i::8]) #score the horizontal lines
 
-        if self.finished:
+        if self.finished and not self.winner:
             self._pick_winner()
         
         #Notice no scores for diagonal lines
@@ -69,7 +69,7 @@ class Game(object):
             if length>=6:
                 self.finished=True
                 self.winner=current_player
-                return #avoid the pick winner function being run, as the winner is decided independant of the score in this case
+                return 
 
     def _pick_winner(self):
         if self.score1>self.score2:
