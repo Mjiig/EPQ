@@ -61,7 +61,7 @@ void VM::load_board(std::string board)
 void VM::mainloop(void)
 {
 	/*this would perhaps be better/more efficiently done by having a data structure hold a list of strings and appropriate function pointers, but that's a lot more work for probably a very small gain*/
-	while(!finished && ip<program.size()) //Add in a steps limit later
+	while(!finished && ip<program.size() && steps<100000) //This limit is less than I'd like, but necessary to get high enough performance
 	{
 		exec(program[ip]);
 		ip++;
