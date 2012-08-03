@@ -1,3 +1,6 @@
+main: vm.o main.o
+	$(CXX) vm.o main.o -o vm -Wall -O3
+
 tests: test/runner
 	./test/runner
 
@@ -23,6 +26,9 @@ test/program-test.cpp: test/program-test.h
 vm.o: vm.cpp vm.h
 	$(CXX) vm.cpp -c -o vm.o -Wall -O3
 
+main.o: main.cpp vm.h
+	$(CXX) main.cpp -c -o main.o -Wall -O3
+
 clean:
-	rm test/runner test/runner.cpp test/exec-test.cpp test/instruction-test.cpp test/program-test.cpp vm.o
+	rm test/runner test/runner.cpp test/exec-test.cpp test/instruction-test.cpp test/program-test.cpp vm.o main.o vm
 
