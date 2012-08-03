@@ -21,7 +21,7 @@ test/program-test.cpp: test/program-test.h
 	cxxtestgen --part -o program-test.cpp --error-printer program-test.h
 
 vm.o: vm.cpp vm.h
-	$(CXX) vm.cpp -c -o vm.o -Wall
+	$(CXX) vm.cpp -c -o vm.o -Wall -O3
 
 clean:
 	rm test/runner test/runner.cpp test/exec-test.cpp test/instruction-test.cpp test/program-test.cpp vm.o
