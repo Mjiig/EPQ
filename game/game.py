@@ -95,6 +95,17 @@ class Game(object):
                 ret+="\n________________\n"
         return ret
 
+    def get_player_string(self, player):
+        result=""
+        for square in self._board:
+            if square==0:
+                result+="0"
+            elif square==player:
+                result+="1"
+            else:
+                result+="2"
+        return result
+
 if __name__=="__main__":
     g=Game()
     while not g.finished:
