@@ -15,11 +15,16 @@ class Game(object):
         if self.finished:
             raise RuntimeError, "the game is already finished"
 
-        if self._board[n]==0:
-            if n is not -1:
-                self._board[n]=self.next_player
+        if n==-1:
+            if self._prev_pass:
+                self.finished=True
+            self._prev_pass=True
         else:
-            raise ValueError, "square " +str(n) + " has already been played in"
+            self._prev_pass=False
+            if self._board[n]==0:
+                    self._board[n]=self.next_player
+            else:
+                raise ValueError, "square " +str(n) + " has already been played in"
 
         if self.next_player==1:
             self.next_player=2
@@ -28,13 +33,6 @@ class Game(object):
 
         if self._board.count(0)==0: #if every square has been played one
             self.finished=True
-
-        if n==-1:
-            if self._prev_pass:
-                self.finished=True
-            self._prev_pass=True
-        else:
-            self._prev_pass=False
 
         self.score()
 
