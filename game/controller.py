@@ -12,6 +12,8 @@ p2=pexpect.spawn(sys.argv[2])
 
 p1.setecho(False)
 p2.setecho(False)
+p1.delaybeforesend=0 #we can't afford the default delay of 0.2 seconds, which is unnecessary anyway
+p2.delaybeforesend=0
 
 while not g.finished:
     if g.next_player==1:
