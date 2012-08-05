@@ -60,22 +60,22 @@ class ProgramTests: public CxxTest::TestSuite
 
 		TS_ASSERT(!vm->finished);
 		
-		TS_ASSERT_EQUALS(vm->program[0], "NOP");
-		TS_ASSERT_EQUALS(vm->program[1], "NOP");
-		TS_ASSERT_EQUALS(vm->program[2], "TERM");
+		TS_ASSERT_EQUALS(vm->program[0], 2);
+		TS_ASSERT_EQUALS(vm->program[1], 2);
+		TS_ASSERT_EQUALS(vm->program[2], 11);
 		TS_ASSERT_EQUALS(vm->program.size(), 3);
 
 		delete vm;
 
 		vm = new VM("NOP");
-		TS_ASSERT_EQUALS(vm->program[0], "NOP");
+		TS_ASSERT_EQUALS(vm->program[0], 2);
 		TS_ASSERT_EQUALS(vm->program.size(), 1);
 
 		delete vm;
 
 		vm=new VM("NOP\n");
-		TS_ASSERT_EQUALS(vm->program[0], "NOP");
-		TS_ASSERT_EQUALS(vm->program[1], "");
+		TS_ASSERT_EQUALS(vm->program[0], 2);
+		TS_ASSERT_EQUALS(vm->program[1], 2);
 		TS_ASSERT_EQUALS(vm->program.size(), 2);
 		delete vm;
 	}

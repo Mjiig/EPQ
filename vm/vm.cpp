@@ -9,11 +9,12 @@ VM::VM(std::string programtext)
 	size_t next=programtext.find('\n', 0);
 	while(next!=std::string::npos)
 	{
-		program.push_back(programtext.substr(last, next-last));
+		std::string line=programtext.substr(last, next-last);
+		program.push_back(compile(line));
 		last=next+1;
 		next=programtext.find('\n', last);
 	}
-	program.push_back(programtext.substr(last, next));
+	program.push_back(compile(programtext.substr(last, next)));
 	
 	r1=r2=r3=r4=r5=0;
 	for(int i=0; i<256;i++)
@@ -69,49 +70,111 @@ void VM::mainloop(void)
 	}
 }
 
-void VM::exec(std::string ins)
+unsigned int VM::compile(std::string ins)
 {
-	/*Deal with the special case of load(1, 2) first*/
+	unsigned int ret;
+
 	if(!ins.compare(0, 5, "LOAD1"))
 	{
 		int literal=atoi(ins.substr(6).c_str());
-		load1(literal);
+		ret= 0 | (literal << 8);
 	}
 	else if(!ins.compare(0, 5, "LOAD2"))
 	{
 		int literal=atoi(ins.substr(6).c_str());
-		load2(literal);
+		ret= 1 | (literal << 8);
 	}
 	else if(!ins.compare(0, 3, "NOP"))
-		nop();
+		ret=2;
 	else if(!ins.compare(0, 5, "JMPIF"))
-		jmpif();
+		ret=3;
 	else if(!ins.compare(0, 3, "JMP"))
-		jmp();
+		ret=4;
 	else if(!ins.compare(0, 5, "STORE"))
-		store();
+		ret=5;
 	else if(!ins.compare(0, 4, "LOAD"))
-		load();
+		ret=6;
 	else if(!ins.compare(0, 5, "SWAP2"))
-		swap2();
+		ret=7;
 	else if(!ins.compare(0, 5, "SWAP3"))
-		swap3();
+		ret=8;
 	else if(!ins.compare(0, 5, "SWAP4"))
-		swap4();
+		ret=9;
 	else if(!ins.compare(0, 5, "SWAP5"))
-		swap5();
+		ret=10;
 	else if(!ins.compare(0, 4, "TERM"))
-		term();
+		ret=11;
 	else if(!ins.compare(0, 3, "INC"))
-		inc();
+		ret=12;
 	else if(!ins.compare(0, 3, "ADD"))
-		add();
+		ret=13;
 	else if(!ins.compare(0, 3, "SUB"))
-		sub();
+		ret=14;
 	else if(!ins.compare(0, 3, "DIV"))
-		div();
+		ret=15;
 	else if(!ins.compare(0, 4, "MULT"))
+		ret=16;
+	else
+		ret=2; //If we don't know what the user wants, assume NOP, though this should never happen
+
+	return ret;
+}
+void VM::exec(unsigned int ins)
+{
+	switch(ins & 0xFF)
+	{
+	case 0:
+		load1(ins >> 8);
+		break;
+	case 1:
+		load2(ins >> 8);
+		break;
+	case 2:
+		nop();
+		break;
+	case 3:
+		jmpif();
+		break;
+	case 4:
+		jmp();
+		break;
+	case 5:
+		store();
+		break;
+	case 6:
+		load();
+		break;
+	case 7:
+		swap2();
+		break;
+	case 8:
+		swap3();
+		break;
+	case 9:
+		swap4();
+		break;
+	case 10:
+		swap5();
+		break;
+	case 11:
+		term();
+		break;
+	case 12:
+		inc();
+		break;
+	case 13:
+		add();
+		break;
+	case 14:
+		sub();
+		break;
+	case 15:
+		div();
+		break;
+	case 16:
 		mult();
+		break;
+	}
 }
 
 void VM::swap(unsigned char &a, unsigned char &b) // notice this is not an instruction, but a helper

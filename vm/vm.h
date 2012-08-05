@@ -5,14 +5,15 @@ class VM
 {
 	unsigned char memory[256];
 	unsigned char r1, r2, r3, r4, r5;
-	std::vector<std::string> program; //a vector containing each line of the program
+	std::vector<unsigned int> program; //a vector the compiled program
 	size_t ip; //the instruction pointer
 	int steps;
 
 	void swap(unsigned char &a, unsigned char &b);
 	void load_board(std::string board);
 	void mainloop(void);
-	void exec(std::string instruction);
+	void exec(unsigned int instruction);
+	unsigned int compile(std::string ins);
 
 	/*INSTRUCTION SET*/
 	void nop(void);
@@ -41,4 +42,5 @@ class VM
 	friend class ExecTests; //For unit testing
 	friend class InstructionTests;
 	friend class ProgramTests;
+	friend class CompileTests;
 };
