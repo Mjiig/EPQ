@@ -6,7 +6,7 @@ def make_prog(n):
 
     print "Generating " + str(n)
 
-    subprocess.call("python ../init/create.py >" +  "%0*d" %(10, n) + ".dna", shell=True);
+    subprocess.call("python ../init/create.py >" +  "1_"+"%0*d" %(3, n) + ".dna", shell=True);
 
 
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #move to the same directory as this source file
