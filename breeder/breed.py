@@ -25,14 +25,15 @@ def breed(a, b): #a and b are the names of files containing dna programs
 
         output[len(output):]=source[len(output):len(output)+chunk_len]
 
-    extra_len=random.randrange(abs(len(a_lines)-len(b_lines)))
+    if len(a_lines) != len(b_lines):
+        extra_len=random.randrange(abs(len(a_lines)-len(b_lines)))
 
-    if len(a_lines)>len(b_lines):
-        source=a_lines
-    else:
-        source=b_lines
+        if len(a_lines)>len(b_lines):
+            source=a_lines
+        else:
+            source=b_lines
 
-    output[len(output):]=source[len(output):len(output)+extra_len]
+        output[len(output):]=source[len(output):len(output)+extra_len]
 
     return output
     
