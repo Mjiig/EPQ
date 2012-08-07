@@ -2,6 +2,7 @@ import game
 import pexpect
 import sys
 import os
+import breeder_link
 
 def score(g):
     score=0
@@ -16,7 +17,7 @@ def score(g):
     
     return score
 
-
+scores=[]
 
 p1=pexpect.spawn(sys.argv[1])
 
@@ -51,4 +52,8 @@ for i in xrange(1000):
 
         g.play(move)
 
-    print str(i) + " - " + str(score(g))
+    scores.append(score(g))
+    print i
+
+print max(scores)
+breeder_link.next_generation(scores, gen)
