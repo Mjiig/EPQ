@@ -49,12 +49,13 @@ def select(scores):
     for item in scores:
         total+=item
 
+    total=total*total
     target=random.randrange(total)
     current=0
     ret=0
     for i in xrange(len(scores)):
         current+=scores[i]
-        if current>target:
+        if (current * current) > target:
             return i
 
 #scores is a list giving the score for each organism in generation gen
