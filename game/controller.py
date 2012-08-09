@@ -20,7 +20,7 @@ def score(g):
 
 scores=[]
 
-p1=pexpect.spawn(sys.argv[1])
+opponent=os.path.abspath(sys.argv[1])
 
 os.chdir(os.path.dirname(os.path.abspath(__file__))) #move to the same directory as this source file
 os.chdir("../population/")
@@ -29,10 +29,11 @@ gen=int(sys.argv[2])
 
 os.chdir(str(gen))
 
-p1.setecho(False)
-p1.delaybeforesend=0 #we can't afford the default delay of 0.2 seconds, which is unnecessary anyway
 for i in xrange(1000):
 
+    p1=pexpect.spawn(opponent)
+    p1.setecho(False)
+    p1.delaybeforesend=0 #we can't afford the default delay of 0.2 seconds, which is unnecessary anyway
     p2=pexpect.spawn("../../vm/vm " + ("%0*d" % (3, i) + ".dna"))
     p2.setecho(False)
     p2.delaybeforesend=0

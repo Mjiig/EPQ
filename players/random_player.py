@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import random
 
 random.seed("This kind of phrase is what happens when I have to come up with a seed at 11PM")
