@@ -2,6 +2,7 @@ import game
 import pexpect
 import sys
 import os
+import sys
 import breeder_link
 
 def score(g):
@@ -55,8 +56,10 @@ for i in xrange(1000):
         g.play(move)
 
     scores.append(score(g))
-    print i
+    print str(i) + "   \r",
+    sys.stdout.flush()
 
+print
 print max(scores)
 os.chdir("..")
 breeder_link.next_generation(scores, gen)
