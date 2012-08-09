@@ -1,4 +1,5 @@
 import random
+import os
 
 #breeding function shamlessy taken from imagenest the owner of which (Joseph Gleason) has emailed me to say that the code this copies is released under an MIT lisence. 1209k.com/nest 
 def breed(a, b): #a and b are the names of files containing dna programs
@@ -62,6 +63,11 @@ def select(scores):
 #this **MUST** be run when the cwd is population, otherwise bad things will happen
 def next_generation(scores, gen):
 
+    try:
+        os.mkdir(str(gen+1))
+    except OSError:
+        pass
+
     mean=calculate_mean(scores)
     for i in xrange(len(scores)):
         if scores[i]<mean:
@@ -73,8 +79,8 @@ def next_generation(scores, gen):
         while a==b:
             b=select(scores)
 
-        child = breed(("%d_%03d.dna" % (gen,a)), ("%d_%03d.dna" % (gen,a)))
+        child = breed(("%d/%03d.dna" % (gen,a)), ("%d/%03d.dna" % (gen,a)))
 
-        with open("%d_%03d.dna" % (gen+1, i), "w+") as f:
+        with open("%d/%03d.dna" % (gen+1, i), "w+") as f:
             f.writelines(child)
     

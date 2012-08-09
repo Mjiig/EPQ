@@ -26,11 +26,13 @@ os.chdir("../population/")
 
 gen=int(sys.argv[2])
 
+os.chdir(str(gen))
+
 p1.setecho(False)
 p1.delaybeforesend=0 #we can't afford the default delay of 0.2 seconds, which is unnecessary anyway
 for i in xrange(1000):
 
-    p2=pexpect.spawn("../vm/vm " + str(gen) + "_" + ("%0*d" % (3, i) + ".dna"))
+    p2=pexpect.spawn("../../vm/vm " + ("%0*d" % (3, i) + ".dna"))
     p2.setecho(False)
     p2.delaybeforesend=0
 
@@ -56,4 +58,5 @@ for i in xrange(1000):
     print i
 
 print max(scores)
+os.chdir("..")
 breeder_link.next_generation(scores, gen)
