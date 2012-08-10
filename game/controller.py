@@ -18,49 +18,49 @@ def score(g):
     
     return score
 
-scores=[]
+#note this function changes the cwd
+def calculate_generation(opponent_path, gen):
+    scores=[]
 
-opponent=os.path.abspath(sys.argv[1])
+    opponent=os.path.abspath(opponent_path)
 
-os.chdir(os.path.dirname(os.path.abspath(__file__))) #move to the same directory as this source file
-os.chdir("../population/")
+    os.chdir(os.path.dirname(os.path.abspath(__file__))) #move to the same directory as this source file
+    os.chdir("../population/")
 
-gen=int(sys.argv[2])
+    os.chdir(str(gen))
 
-os.chdir(str(gen))
+    for i in xrange(1000):
 
-for i in xrange(1000):
+        p1=pexpect.spawn(opponent)
+        p1.setecho(False)
+        p1.delaybeforesend=0 #we can't afford the default delay of 0.2 seconds, which is unnecessary anyway
+        p2=pexpect.spawn("../../vm/vm " + ("%0*d" % (3, i) + ".dna"))
+        p2.setecho(False)
+        p2.delaybeforesend=0
 
-    p1=pexpect.spawn(opponent)
-    p1.setecho(False)
-    p1.delaybeforesend=0 #we can't afford the default delay of 0.2 seconds, which is unnecessary anyway
-    p2=pexpect.spawn("../../vm/vm " + ("%0*d" % (3, i) + ".dna"))
-    p2.setecho(False)
-    p2.delaybeforesend=0
+        g=game.Game()
+        
+        while not g.finished:
+            if g.next_player==1:
+                process=p1
+            else:
+                process=p2
 
-    g=game.Game()
-    
-    while not g.finished:
-        if g.next_player==1:
-            process=p1
-        else:
-            process=p2
+            process.sendline(g.get_player_string(g.next_player))
+            process.expect("\d*\r\n")
 
-        process.sendline(g.get_player_string(g.next_player))
-        process.expect("\d*\r\n")
+            move=int(process.after)%64
 
-        move=int(process.after)%64
+            if g._board[move]!=0:
+                move=-1
 
-        if g._board[move]!=0:
-            move=-1
+            g.play(move)
 
-        g.play(move)
+        scores.append(score(g))
+        print str(i) + "   \r",
+        sys.stdout.flush()
 
-    scores.append(score(g))
-    print str(i) + "   \r",
-    sys.stdout.flush()
-
-print
-print max(scores)
-os.chdir("..")
-breeder_link.next_generation(scores, gen)
+    print
+    print max(scores)
+    os.chdir("..")
+    breeder_link.next_generation(scores, gen)
