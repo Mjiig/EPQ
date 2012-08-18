@@ -1,6 +1,9 @@
 import random
 import os
 
+loads = ["LOAD1", "LOAD2"] #special case as they require a literal
+commands = ["NOP", "JMP", "JMPIF", "STORE", "LOAD", "SWAP2", "SWAP3", "SWAP4", "SWAP5", "TERM", "INC", "ADD", "SUB", "DIV", "MULT"]
+
 #breeding function shamlessy taken from imagenest the owner of which (Joseph Gleason) has emailed me to say that the code this copies is released under an MIT lisence. 1209k.com/nest 
 def breed(a, b): #a and b are the names of files containing dna programs
     with open(a) as f:
@@ -35,6 +38,22 @@ def breed(a, b): #a and b are the names of files containing dna programs
             source=b_lines
 
         output[len(output):]=source[len(output):len(output)+extra_len]
+
+    #add some random mutations
+
+    while random.randrange(10)!=0: #should run roughly six times on average
+        pos=random.randrange(len(output)+1)
+
+        index = random.randrange(len(loads) + len(commands))
+
+        if index < len(loads):
+            new = loads[index]
+            new+= " "
+            new += str(random.randrange(255))
+        else:
+            new = commands[index-len(loads)]
+
+        output=output[:pos]+[new + "\n"]+output[pos:]
 
     return output
     
