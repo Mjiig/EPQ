@@ -68,11 +68,6 @@ def next_generation(scores, gen):
     except OSError:
         pass
 
-    mean=calculate_mean(scores)
-    for i in xrange(len(scores)):
-        if scores[i]<mean:
-            scores[i]=0
-
     for i in xrange(1000):
         a=select(scores)
         b=a
