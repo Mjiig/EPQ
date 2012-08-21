@@ -46,6 +46,11 @@ unsigned char VM::run(std::string state)
 
 void VM::load_board(std::string board)
 {
+	if(board.length()!=9)
+	{
+		throw "Input to load_board too long";
+	}
+
 	for(size_t i=0; i<board.length();i++)
 	{
 		if(board[i]=='1')
