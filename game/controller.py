@@ -5,17 +5,15 @@ import os
 import sys
 import breeder_link
 
+#needs to be rewritten for 3*3 noughts and crosses
 def score(g):
     score=0
     if g.winner==2:
-        score+=10000 #big score if we won
+        score+=20 #big score if we won
     if g.winner==0:
-        score+=5000 #smaller score if we drew
+        score+=10 #smaller score if we drew
 
-    score+=g.score2*100 #add 10 for every point we scored 
-
-    score+=g._board.count(2) #and a point for every cross we actually played :) should probably be removed long term, but good to encourage initial evolution
-    
+    score+=g._board.count(2)
     return score
 
 #note this function changes the cwd
@@ -49,7 +47,7 @@ def calculate_generation(opponent_path, gen):
             process.sendline(g.get_player_string(g.next_player))
             process.expect("\d*\r\n")
 
-            move=int(process.after)%64
+            move=int(process.after)%9
 
             if g._board[move]!=0:
                 move=-1
