@@ -49,7 +49,7 @@ def calculate_generation(opponent_path, gen):
             process.sendline(g.get_player_string(g.next_player))
             process.expect("\d*\r\n")
 
-            move=int(process.after)%64
+            move=int(process.after)%9
 
             if g._board[move]!=0:
                 move=-1
