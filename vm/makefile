@@ -34,5 +34,5 @@ main.o: main.cpp vm.h
 	$(CXX) main.cpp -c -o main.o -Wall -O3
 
 clean:
-	rm test/runner test/runner.cpp test/exec-test.cpp test/instruction-test.cpp test/program-test.cpp vm.o main.o vm
+	rm test/runner test/runner.cpp test/exec-test.cpp test/instruction-test.cpp test/program-test.cpp test/compile-test.cpp vm.o main.o vm -f
 
