@@ -4,6 +4,7 @@ import sys
 import os
 import sys
 import breeder_link
+import functools
 
 #needs to be rewritten for 3*3 noughts and crosses
 def score(g):
@@ -56,10 +57,9 @@ def calculate_generation(opponent_path, gen):
 
     os.chdir(str(gen))
 
-    for i in xrange(1000):
-        scores.append(calculate_organism(opponent, i))
-        print str(i) + "   \r",
-        sys.stdout.flush()
+    f=functools.partial(calculate_organism, opponent)
+
+    scores=map(f, xrange(1000))
 
     print
     print max(scores)
