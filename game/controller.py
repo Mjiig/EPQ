@@ -5,7 +5,6 @@ import os
 import sys
 import breeder_link
 
-#needs to be rewritten for 3*3 noughts and crosses
 def score(g):
     score=0
     if g.winner==2:
