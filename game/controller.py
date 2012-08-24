@@ -5,6 +5,7 @@ import os
 import sys
 import breeder_link
 import functools
+import multiprocessing
 
 def score(g):
     score=0
@@ -58,7 +59,9 @@ def calculate_generation(opponent_path, gen):
 
     f=functools.partial(calculate_organism, opponent)
 
-    scores=map(f, xrange(1000))
+    p=multiprocessing.Pool(10)
+
+    scores=p.map(f, xrange(1000))
 
     print
     print max(scores)
