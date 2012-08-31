@@ -57,11 +57,10 @@ def calculate_generation(opponent_path, gen):
 
     os.chdir(str(gen))
 
-    f=functools.partial(calculate_organism, opponent)
-
-    p=multiprocessing.Pool(10)
-
-    scores=p.map(f, xrange(1000))
+    for i in xrange(1000):
+        scores.append(calculate_organism(opponent, i))
+        print str(i) + "   \r",
+        sys.stdout.flush()
 
     print
     print max(scores)
