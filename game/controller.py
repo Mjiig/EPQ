@@ -17,6 +17,12 @@ def score(g):
     score+=g._board.count(2)
     return score
 
+def mean(array):
+    total=0
+    for item in array:
+        total+=item
+    return total/len(array)
+
 def calculate_organism(opponent_name, organism_number):
     p1=pexpect.spawn(opponent_name)
     p1.setecho(False)
@@ -63,6 +69,7 @@ def calculate_generation(opponent_path, gen):
         sys.stdout.flush()
 
     print
+    print mean(scores)
     print max(scores)
     os.chdir("..")
     breeder_link.next_generation(scores, gen)
