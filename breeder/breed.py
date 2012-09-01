@@ -57,13 +57,6 @@ def breed(a, b): #a and b are the names of files containing dna programs
 
     return output
     
-
-def calculate_mean(array):
-    total=0
-    for item in array:
-        total+=item
-    return total/len(array)
-
 def select(scores):
     total=0
     for item in scores:
